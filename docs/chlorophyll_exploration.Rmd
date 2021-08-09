@@ -19,7 +19,8 @@ library(skimr)
 
 Use `read_csv`
 ```{r}
-toolik_chlorophyll <- read_csv(here::here("data", "data-raw", "toolik_chlorophyll.csv"))
+toolik_chlorophyll <- read_csv(here::here("data", "data-raw", "toolik_chlorophyll.csv"),
+                           na = ".")
 ```
 
 Explore the imported data with `skimr:skim()`, `names()`, `dim()`, `summary()`
@@ -27,11 +28,34 @@ Explore the imported data with `skimr:skim()`, `names()`, `dim()`, `summary()`
 ```{r}
 skimr::skim(toolik_chlorophyll)
 
+names(toolik_chlorophyll)
+
 
 ```
 
 ```{r}
-toolik_chorophyll <- toolik_chlorophyll %>% clean_names()
+toolik_chlorophyll <- toolik_chlorophyll %>% clean_names()
+
+```
+
+## Create a scatterplot of depth versus chlorophyll A concentration
+
+- make point size `size` changed based on the concentration
+- make all points `cyan`
+- update the theme to `theme_dark()`
+
+```{r}
+chlorophyll_plot <- ggplot(data = toolik_chlorophyll,
+                           aes(x = active_chl_a_ug_l, y = depth)) +
+  geom_point(aes(size = active_chl_a_ug_l), 
+             color = "cyan") + 
+  theme_dark()
+
+chlorophyll_plot
+```
+
+```{r}
+ggsave(here::here("figs", "chlorophyll_graph.jpg"), plot = chlorophyll_plot)
 
 
 ```
