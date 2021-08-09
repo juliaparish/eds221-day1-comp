@@ -1,0 +1,38 @@
+---
+title: "toolik_chlorophyll_concentrations"
+author: "Julia Parish"
+date: "8/9/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(janitor)
+library(here)
+library(skimr)
+
+```
+
+## Read in toolik_chlorophll.csv as a data frame stored as `toolik_chlorophyll`
+
+Use `read_csv`
+```{r}
+toolik_chlorophyll <- read_csv(here::here("data", "data-raw", "toolik_chlorophyll.csv"))
+```
+
+Explore the imported data with `skimr:skim()`, `names()`, `dim()`, `summary()`
+
+```{r}
+skimr::skim(toolik_chlorophyll)
+
+
+```
+
+```{r}
+toolik_chorophyll <- toolik_chlorophyll %>% clean_names()
+
+
+```
+
